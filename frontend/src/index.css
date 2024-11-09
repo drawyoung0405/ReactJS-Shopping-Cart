@@ -15,7 +15,7 @@ body {
 }
 
 .mainContent:before {
-  content: "HAAAAAAAA";
+  content: "";
   display: block;
   position: fixed;
   width: 300%;

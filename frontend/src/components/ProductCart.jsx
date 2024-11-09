@@ -31,7 +31,7 @@ function ProductCart() {
                       text="-"
                     />
                   </div>
-                  <div className="cartItem_number">1</div>
+                  <div className="cartItem_number">{item.quanlity}</div>
                   <div className="cartItem_button">
                     <Button
                       bgColor="transparent"

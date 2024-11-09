@@ -3,45 +3,44 @@ import { useAppContext } from "../contexts/AppContext"
 import Button from "./Button"
 import ImageSimple from "./ImageSimple";
 function ProductItem() {
-  const { products, addToCart, carts } = useAppContext();
+  const { products, addToCart } = useAppContext();
   return (
     <>
       {
         products.map((item) => {
-          const disabled = carts.include(cart => cart.id === item.id);
+          // const disabled = carts.some(cart => cart.id === item.id);
           return (
             <div key={item.id} className="shopItem">
               <div className="shopItem_image"
-              style={{
-                backgroundColor: item.color
-              }}
+                style={{
+                  backgroundColor: item.color
+                }}
               >
                 <ImageSimple
-                src = {item.image}
-                title = ''
-                alt = ''
-                />             
-                 </div>
+                  src={item.image}
+                  title=''
+                  alt=''
+                />
+              </div>
               <div className="shopItem_name">{item.name}</div>
               <div className="shopItem_description">{item.description}</div>
               <div className="shopItem_bottom">
                 <div className="shopItem_price">${item.price}</div>
+                {
+                  item.isSelected==false && <div
+                      className="shopItem_button"
+                      style={{
+                        backgroundColor: '#f8d43f'
+                      }}
+                    >
+                      <Button
+                        text="Added"
+                        bgColor='transparent'
+                        onClick={() => addToCart(item.id)}
 
-                  {!disabled && (
-                <div 
-                  className="shopItem_button"
-                  style={{
-                    backgroundColor: disabled ? 'transparent' : ''
-                  }}
-                >
-                  <Button
-                    text="Added"
-                    bgColor='transparent'
-                    onClick={() => addToCart(item.id)}
-
-                  />
-                </div>
-              )}
+                      />
+                    </div>
+                }
               </div>
             </div>
           )

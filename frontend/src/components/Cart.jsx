@@ -5,7 +5,9 @@ import ImageSimple from "./ImageSimple"
 
 function Cart() {
   const{carts} = useAppContext();
-  const total = carts.reduce((acc, curr) => acc += curr.price * (curr.quanlity || 1), 0);
+  const totalPrice = carts.reduce((acc, curr) => acc += curr.price * (curr.quanlity || 1), 0);
+  let totalQuanlity=0;
+   carts.forEach((element) => totalQuanlity+=element.quanlity);
   return (
     <>
       <div className="cardTop">
@@ -14,14 +16,15 @@ function Cart() {
           alt=""
           src="https://cdn-icons-png.flaticon.com/512/732/732084.png"
         />
-        <div>Total: {carts.length}</div>
+        <div>Total: {totalQuanlity}</div>
       </div>
       <div className="cardTitle">
         <span>Your cart</span>
-        <span className="card_amount">${Math.floor(total)}</span>
+        <span className="card_amount">${Math.floor(totalPrice)}</span>
       </div>
     </>
   )
 }
+
 
 export default Cart
