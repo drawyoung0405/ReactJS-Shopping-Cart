@@ -1,16 +1,21 @@
-import React from 'react'
+// import React from 'react'
 import { useAppContext } from "../contexts/AppContext"
 import Button from "./Button"
 import ImageSimple from "./ImageSimple";
 function ProductItem() {
-  const { products } = useAppContext();
+  const { products, addToCart, carts } = useAppContext();
   return (
     <>
       {
         products.map((item) => {
+          const disabled = carts.include(cart => cart.id === item.id);
           return (
             <div key={item.id} className="shopItem">
-              <div className="shopItem_image">
+              <div className="shopItem_image"
+              style={{
+                backgroundColor: item.color
+              }}
+              >
                 <ImageSimple
                 src = {item.image}
                 title = ''
@@ -18,14 +23,25 @@ function ProductItem() {
                 />             
                  </div>
               <div className="shopItem_name">{item.name}</div>
-              <div className="shopItem_description">The iconic Nike Air Zoom Pegasus 36 offers more cooling and mesh that targets breathability across high-heat areas. A slimmer heel collar and tongue reduce bulk, while exposed cables give you a snug fit at higher speeds.</div>
+              <div className="shopItem_description">{item.description}</div>
               <div className="shopItem_bottom">
-                <div className="shopItem_price">$108.97</div>
-                <div className="shopItem_button">
-                  <Button text='Added'
-                    bgColor="transparent"
+                <div className="shopItem_price">${item.price}</div>
+
+                  {!disabled && (
+                <div 
+                  className="shopItem_button"
+                  style={{
+                    backgroundColor: disabled ? 'transparent' : ''
+                  }}
+                >
+                  <Button
+                    text="Added"
+                    bgColor='transparent'
+                    onClick={() => addToCart(item.id)}
+
                   />
                 </div>
+              )}
               </div>
             </div>
           )
